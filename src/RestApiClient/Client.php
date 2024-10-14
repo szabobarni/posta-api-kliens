@@ -4,7 +4,7 @@ namespace App\RestApiClient;
 use App\Interfaces\ClientInterface;
 use Exception;
 
-class Client implements ClientInterface {
+class Client /*implements ClientInterface*/ {
 
     const API_URL = 'https//localhost:8000';
     /**

@@ -12,9 +12,9 @@ interface PageInterface{
 
     static function tableHead();
 
-    static function tableBody();
+    static function tableBody(array $entities);
 
-    static function table();
+    static function table(array $entities);
 
     static function searchBar();
 }

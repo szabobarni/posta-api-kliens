@@ -1,7 +1,8 @@
 <?php 
 namespace App\Html;
 
-class PageCounties extends AbstractPage{
+class PageCounties extends AbstractPage
+{
 
     static function table(array $entites){
         echo '<h1>Megyék</h1>';
@@ -23,6 +24,41 @@ class PageCounties extends AbstractPage{
         <tr id="editor" class="hidden">
         </tr>
        </thead>';
+    }
+    static function tableBody(array $entities)
+    {
+        echo '<tbody>';
+        $i = 0;
+        foreach ($entities as $entity) {
+            $onClick = sprintf(
+                'btnEditCountyOnClick(%d, "%s")', 
+                $entity['id'], 
+                $entity['name']
+            );
+            echo "
+            <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
+                <td>{$entity['id']}</td>
+                <td>{$entity['name']}</td>
+                <td class='flex float-right'>
+                    <button type='button' 
+                        id='btn-edit-{$entity['id']}' 
+                        onclick='$onClick' 
+                        title='Módosít'>
+                        <i class='fa fa-edit'></i>
+                    </button>
+                    <form method='post' action=''>
+                        <button type='submit' 
+                            id='btn-del-county-{$entity['id']}' 
+                            name='btn-del-county' 
+                            value='{$entity['id']}' 
+                            title='Töröl'>
+                            <i class='fa fa-trash'></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>";
+        }
+        echo '</tbody>';
     }
     static function editor(){
         echo'<th>&nbsp;</th>

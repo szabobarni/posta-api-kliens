@@ -32,7 +32,7 @@ abstract class AbstractPage implements PageInterface{
         </footer>
         </html>';
     }
-    static function serchBar(){
+    static function searchBar(){
         echo'<form method="post" action="">
             <input type="search" name="needle" placeholder="Keres">
                 <button type="submit" id="btn-search" name="btn-search" title="Keres">
