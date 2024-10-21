@@ -7,5 +7,5 @@ use App\Html\Request;
 
 PageCounties::head();
 PageCounties::nav();
-Request::Handle();
+Request::handle();
 PageCounties::footer();
