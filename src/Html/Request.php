@@ -8,8 +8,11 @@ class Request{
     static function handle()
     {
         switch ($_SERVER["REQUEST_METHOD"]){
-           case "POST":
+           case "POST":                
                 self::postRequest();
+                break;
+            case "PUT":
+                self::putRequest();
                 break;
            case "GET":
            default:

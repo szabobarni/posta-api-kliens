@@ -6,7 +6,7 @@ use Exception;
 
 class Client /*implements ClientInterface*/ {
 
-    const API_URL = 'https//localhost:8000';
+    const API_URL = 'http://localhost:8000/';
     /**
      * The whole url including host, api url and jql query.
      * @var string
