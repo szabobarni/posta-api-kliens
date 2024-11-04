@@ -46,7 +46,7 @@ class PageCounties extends AbstractPage
                         title='Módosít'>
                         <i class='fa fa-edit'></i>
                     </button>
-                    <form method='post' action=''>
+                    <form method='delete' action=''>
                         <button type='submit' 
                             id='btn-del-county-{$entity['id']}' 
                             name='btn-del-county' 
