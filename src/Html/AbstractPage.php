@@ -17,6 +17,7 @@ abstract class AbstractPage implements PageInterface{
             <link href="fontawesome/css/all.css" rel="stylesheet" type="text/css">
             <link href="css/app.css" rel="stylesheet" type="text/css">
             <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="styles.css">
             <!-- Icons -->
             <link rel="icon" type="image/x-icon" href="favicon.ico">
             <title>Posta</title>

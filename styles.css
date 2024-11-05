@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    color: #6a0404;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+#counties-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+#counties-table th, #counties-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+#counties-table th {
+    background-color: #6a0404;;
+    color: #fff;
+}
+
+#counties-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#counties-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Flexbox for Buttons */
+.flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.float-right {
+    float: right;
+}
+.gomb{
+    padding: 12px 17px;
+}
+
+/* Button Styles */
+button {
+    cursor: pointer;
+    /*border: none;
+    background-color: transparent;
+    padding: 0;*/
+    transition: color 0.3s;
+}
+
+button:hover {
+    color: #6a0404;
+}
+.button-group {
+    display: inline-flex; /* Align buttons in a row */
+    gap: 5px; /* Space between buttons */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    align-items: center;
+}
+
+input[type="search"], input[type="hidden"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="search"]:focus {
+    border-color: #6a0404;
+    outline: none;
+}
+
+/* Editor Styles */
+#editor {
+    display: none; /* Initially hidden, can be toggled via JavaScript */
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    #counties-table {
+        font-size: 14px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+}

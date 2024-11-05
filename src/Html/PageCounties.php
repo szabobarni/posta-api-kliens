@@ -17,11 +17,12 @@ class PageCounties extends AbstractPage
         <tr>
             <th class="id"-col>#</th>
             <th>Megnevezés</th>
-            <th style="float: right; display: felx">Művelet&nbsp;
-                <button id="brn-add" title="Új">+</button>
+            <th>Művelet&nbsp;
+                <button id="btn-add" title="Új">+</button>
             </th>
         </tr>
         <tr id="editor" class="hidden">
+        '.self::editor().'
         </tr>
        </thead>';
     }
@@ -39,15 +40,16 @@ class PageCounties extends AbstractPage
             <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
                 <td>{$entity['id']}</td>
                 <td>{$entity['name']}</td>
-                <td class='flex float-right'>
-                    <button type='button' 
+                <td>
+                <div class='button-group'>
+                    <button class='gomb' type='button' 
                         id='btn-edit-{$entity['id']}' 
                         onclick='$onClick' 
                         title='Módosít'>
                         <i class='fa fa-edit'></i>
                     </button>
-                    <form method='delete' action=''>
-                        <button type='submit' 
+                    <form method='post' action=''>
+                        <button class='gomb' type='submit' 
                             id='btn-del-county-{$entity['id']}' 
                             name='btn-del-county' 
                             value='{$entity['id']}' 
@@ -55,6 +57,7 @@ class PageCounties extends AbstractPage
                             <i class='fa fa-trash'></i>
                         </button>
                     </form>
+                </div>
                 </td>
             </tr>";
         }

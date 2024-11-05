@@ -11,13 +11,6 @@ class Request{
             case "POST":                
                 self::postRequest();
                 break;
-            case "PUT":
-                self::putRequest();
-                break;
-            case "GET":
-            case "DELETE":
-                self::deleteRequest();
-                break;
             default:
                 self::getRequest();
                 break;
@@ -46,7 +39,10 @@ class Request{
                 break;
             case isset($request['btn-counties']) :
                 PageCounties::table(self::getCounties());
-                break;  
+                break;
+            case isset($request['btn-del-county']) :
+                self::deleteCounty($_POST['btn-del-county']);
+                break;    
         }
     }
     private static function getCounties() : array
@@ -81,27 +77,13 @@ class Request{
             echo json_encode(['error' => 'Invalid input data.']);
         }
     }
-    private static function deleteRequest()
+    private static function deleteCounty($id)
     {
-        parse_str(file_get_contents("php://input"), $requestData);
+        $requestData = $_POST["btn-del-county"];
 
-        if (isset($requestData['id'])) {
-            $id = $requestData['id'];
-
+        if (isset($requestData)) {           
             $client = new Client();
-            $response = $client->delete("counties/{$id}");
-
-            if ($response['success']) {
-                echo json_encode(['message' => 'County deleted successfully.']);
-            } 
-            else 
-            {
-                echo json_encode(['error' => 'Failed to delete county.']);
-            }
+            $response = $client->delete("counties",$requestData);
         } 
-        else 
-        {
-            echo json_encode(['error' => 'Invalid input data.']);
-        }
     }
 }
