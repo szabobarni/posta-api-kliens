@@ -20,6 +20,9 @@ abstract class AbstractPage implements PageInterface{
             <link rel="stylesheet" href="styles.css">
             <!-- Icons -->
             <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+            <!-- Script -->
+            <script src="script.js" type="text/javascript"></script>
             <title>Posta</title>
         </head>';   
     }
@@ -36,6 +39,7 @@ abstract class AbstractPage implements PageInterface{
     static function footer(){
         echo '
         <footer>
+        <br>
             Copyrigth asf
         </footer>
         </html>';

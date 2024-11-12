@@ -34,6 +34,7 @@ class Request{
     private static function postRequest()
     {
         $request = $_REQUEST;
+        $page = new PageCounties();
         switch ($request) {
             case isset($request['btn-home']) :
                 break;
@@ -42,7 +43,10 @@ class Request{
                 break;
             case isset($request['btn-del-county']) :
                 self::deleteCounty($_POST['btn-del-county']);
-                break;    
+                break; 
+            case isset($request['btn-edit']):
+                $page->editor();
+                break;   
         }
     }
     private static function getCounties() : array
@@ -53,30 +57,6 @@ class Request{
         return $response['data'];
     }
     
-    private static function putRequest()
-    {
-        parse_str(file_get_contents("php://input"), $requestData);
-
-        if (isset($requestData['id']) && isset($requestData['name'])) {
-            $id = $requestData['id'];
-            $name = $requestData['name'];
-
-            $client = new Client();
-            $response = $client->put("counties/{$id}", ['name' => $name]);
-
-            if ($response['success']) {
-                echo json_encode(['message' => 'County updated successfully.']);
-            } 
-            else 
-            {
-                echo json_encode(['error' => 'Failed to update county.']);
-            }
-        } 
-        else 
-        {
-            echo json_encode(['error' => 'Invalid input data.']);
-        }
-    }
     private static function deleteCounty($id)
     {
         $requestData = $_POST["btn-del-county"];

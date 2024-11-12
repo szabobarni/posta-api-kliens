@@ -31,11 +31,6 @@ class PageCounties extends AbstractPage
         echo '<tbody>';
         $i = 0;
         foreach ($entities as $entity) {
-            $onClick = sprintf(
-                'btnEditCountyOnClick(%d, "%s")', 
-                $entity['id'], 
-                $entity['name']
-            );
             echo "
             <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
                 <td>{$entity['id']}</td>
@@ -43,8 +38,8 @@ class PageCounties extends AbstractPage
                 <td>
                 <div class='button-group'>
                     <button class='gomb' type='button' 
-                        id='btn-edit-{$entity['id']}' 
-                        onclick='$onClick' 
+                        id='btn-edit-{$entity['id']}',
+                        onclick='btnEditCountyOnClick({$entity['id']}, {$entity['name']})', 
                         title='Módosít'>
                         <i class='fa fa-edit'></i>
                     </button>
@@ -67,8 +62,8 @@ class PageCounties extends AbstractPage
         echo'<th>&nbsp;</th>
         <th>
          <form name="county-editor" method="post" action="">
-             <input type="hidden" name="id" id="id">
-             <input type="search" id="name" name="name" placeholder="Megye" required>
+             <input type="hidden" name="id" id="id_county">
+             <input type="search" id="county_name" name="name" placeholder="Megye" required>
              <button type="submit" id="btn-save-county" name="btn-save-county" title="Ment"><i class="fa fa-save"></i></button>
              <button type="button" id="btn-cancel-county" name="btn-cancel-county" title="Megse"><i class="fa fa-cancel"></i></button>
          </form>
