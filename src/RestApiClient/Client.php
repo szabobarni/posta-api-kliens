@@ -82,4 +82,22 @@ class Client /*implements ClientInterface*/ {
 
         return json_decode($response, TRUE);;
     }
+    public function put($route, array $data = [])
+    {
+        $url = $this->getUrl() . $route;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        $response = curl_exec($curl);
+        
+        if (!$response) {
+            throw new Exception(curl_error($curl));
+        }
+        
+        curl_close($curl);
+        
+        return json_decode($response, TRUE);
+    }
 }

@@ -34,7 +34,7 @@ class Request{
     private static function postRequest()
     {
         $request = $_REQUEST;
-        $page = new PageCounties();
+        $client = new Client();
         switch ($request) {
             case isset($request['btn-home']) :
                 break;
@@ -43,10 +43,37 @@ class Request{
                 break;
             case isset($request['btn-del-county']) :
                 self::deleteCounty($_POST['btn-del-county']);
+                PageCounties::table(self::getCounties());
                 break; 
+            case isset($request['btn-search']):
+                $client = new Client();
+                $response = $client->post('counties', ['needle' => $request['needle']]);
+                $entities = [];
+                if (isset($response['data'])) {
+                    $entities = $response['data'];
+                }
+                PageCounties::table($entities);
+                break;
+            case isset($request['btn-save-county']):               
+                $data['name'] = $request['name'];
+                $client->post('counties', $data);
+                PageCounties::table(self::getCounties());
+                break;
             case isset($request['btn-edit']):
-                $page->editor();
-                break;   
+                $id = $request['edit_county_id'];
+                $name = $request['edit_county_name'];
+                PageCounties::showModifyCounties($id,$name);
+                break;
+            case isset($request['btn-save-modified-county']):
+                $client = new Client();
+                $id = $request['modified_county_id'];
+                $name = $request['modified_county_name'];
+                if ($id && $name) {
+                    $data = ['id' => $id, 'name' => $name];
+                    $response = $client->put("counties/{$id}", $data);
+                    echo 'A módosítás sikeres!';
+                }
+                break;
         }
     }
     private static function getCounties() : array
