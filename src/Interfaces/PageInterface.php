@@ -14,7 +14,7 @@ interface PageInterface{
 
     static function tableBody(array $entities);
 
-    static function table(array $entities);
+    static function table(array $entities,array $counties);
 
     static function searchBar();
 }

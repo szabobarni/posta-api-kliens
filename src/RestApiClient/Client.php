@@ -27,6 +27,8 @@ class Client /*implements ClientInterface*/ {
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+            //var_dump($url);
+            //die;
             $response = curl_exec($curl);
             if  (!$response){
                 trigger_error(curl_error($curl));

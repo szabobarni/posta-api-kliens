@@ -4,11 +4,10 @@ namespace App\Html;
 class PageCounties extends AbstractPage
 {
 
-    static function table(array $entites){
+    static function table(array $entites, array $counties){
         echo '<h1>Megyék</h1>';
         self::searchBar();
         echo '<table id="counties-table">';
-        self::tableHead();
         self::tableBody($entites);
         echo '</table>';    
     }
