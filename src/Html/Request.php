@@ -98,12 +98,17 @@ class Request{
                 PageCities::table(self::getCities(),self::getCounties());
                 break; 
             case isset($request['btn-ok']):
-                $id_county = $_POST['btn-ok'];
-                $response = $client->get("cities");
+                $id_county = $_POST['county_id'];
                 //var_dump($response);
                 //die;
-                PageCities::table($response['data'],self::getCounties());
+                PageCities::table(self::getCitiesByCounty($id_county),self::getCounties());
                 break; 
+            case isset($request['btn-edit-city']):
+                $name = $request['edit_city_name'];
+                $id = $request['edit_city_county_id'];
+                $zip = $request['edit_city_zip_code'];
+                PageCities::showModifyCities($id,$name,$zip);
+                break;
         }
     }
     private static function getCounties() : array
@@ -114,12 +119,19 @@ class Request{
         return $response['data'];
     }
     private static function getCities() : array
-{
-    $client = new Client();
-    $response = $client->get('cities');
+    {
+        $client = new Client();
+        $response = $client->get('cities');
 
-    return $response['data'];
-}
+        return $response['data'];
+    }
+
+    private static function getCitiesByCounty($county_id) :?array{
+        $client = new Client();
+        $response = $client->get("counties/{$county_id}/cities");
+
+        return $response['data'] ?? null;
+    }
     
     private static function deleteCounty($id)
     {
