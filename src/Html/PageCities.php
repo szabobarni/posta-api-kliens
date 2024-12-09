@@ -41,6 +41,7 @@ class PageCities extends AbstractPage
                 <td>
                 <div class='button-group'>
                 <form method='post' action=''>
+                    <input type='hidden' name='edit_city_id' value='{$entity['id']}'>
                     <input type='hidden' name='edit_city_name' value='{$entity['city']}'>
                     <input type='hidden' name='edit_city_county_id' value='{$entity['id_county']}'>
                     <input type='hidden' name='edit_city_zip_code' value='{$entity['zip_code']}'>
@@ -81,16 +82,17 @@ class PageCities extends AbstractPage
         </th>';
     }
 
-    static function showModifyCities($id = null, $name = '',$zip)
+    static function showModifyCities($id,$name,$zip,$idCounty)
     {
         echo '
         <form method="post" action="">
+            <input type="hidden" name="modified_city_id" value="' . htmlspecialchars($id) . '">
             <label for="modified_city_name">Város neve:</label>
             <input type="text" name="modified_city_name" value="' . htmlspecialchars($name) . '">
-            <label for="modified_city_name">Irányítószám:</label>
-            <input type="text" name="modified_city_name" value="' . htmlspecialchars($zip) . '">
+            <label for="modified_city_zip">Irányítószám:</label>
+            <input type="text" name="modified_city_zip" value="' . htmlspecialchars($zip) . '">
             <label for="modified_city_county_id">Megye ID:</label>
-            <input type="text" name="modified_city_id" value="' . htmlspecialchars($id) . '">
+            <input type="text" name="modified_city_county_id" value="' . htmlspecialchars($idCounty) . '">
             <button class="gomb" type="submit" name="btn-save-modified-city"><i class="fa fa-save"></i></button>
         </form>';
     }

@@ -8,6 +8,7 @@ class PageCounties extends AbstractPage
         echo '<h1>Megyék</h1>';
         self::searchBar();
         echo '<table id="counties-table">';
+        self::tableHead();
         self::tableBody($entites);
         echo '</table>';    
     }

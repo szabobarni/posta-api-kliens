@@ -104,10 +104,25 @@ class Request{
                 PageCities::table(self::getCitiesByCounty($id_county),self::getCounties());
                 break; 
             case isset($request['btn-edit-city']):
+                $id = $request['edit_city_id'];
                 $name = $request['edit_city_name'];
-                $id = $request['edit_city_county_id'];
+                $idCounty = $request['edit_city_county_id'];
                 $zip = $request['edit_city_zip_code'];
-                PageCities::showModifyCities($id,$name,$zip);
+                PageCities::showModifyCities($id,$name,$zip,$idCounty);
+                break;
+            case isset($request['btn-save-modified-city']):
+                $client = new Client();
+                $id = $request['modified_city_id'];
+                $name = $request['modified_city_name'];
+                $zip = $request['modified_city_zip'];
+                $county_id = $request['modified_city_county_id'];
+                if ($id && $name && $zip && $county_id) {
+                    $data = ['id' => $id, 'city' => $name,'zip_code' => $zip,'id_county' => $county_id];
+                    //var_dump($data);
+                    //die;
+                    $response = $client->put("cities/{$id}", $data);
+                    echo 'A módosítás sikeres!';
+                }
                 break;
         }
     }
