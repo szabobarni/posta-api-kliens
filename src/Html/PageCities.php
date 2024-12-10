@@ -1,14 +1,18 @@
 <?php 
+/**
+ * @author Németh Rajmonnd Ádám, Szabó József Barnabás
+ */
 namespace App\Html;
 
 class PageCities extends AbstractPage
 {
 
-    static function table(array $entities, array $counties){
+    static function table(array $entities, array $counties,array $abc){
         echo '<h1>Városok</h1>';
         self::dropdown($counties);
         echo '<table id="cities-table">';
         self::tableHead();
+        self::showAbcButtons($abc);
         self::tableBody($entities);
         echo '</table>';    
     }
@@ -23,9 +27,23 @@ class PageCities extends AbstractPage
             <th>Művelet</th>
         </tr>
         <tr>
-        
         </tr>
        </thead>';
+    }
+    static function showAbcButtons(array $abc)
+    {
+        //var_dump($abc);
+        //die;
+        echo "<div style='display: flex'>";
+        foreach ($abc as $ch) {
+            echo "
+            <form method='post' action='makers.php'>
+                <input type='hidden' name='ch' value='$ch'>
+                <button type='submit'>$ch</button>&nbsp;
+            </form>
+            ";
+        }
+        echo "</div><br>";
     }
 
     static function tableBody(array $entities)
