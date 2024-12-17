@@ -7,12 +7,12 @@ namespace App\Html;
 class PageCities extends AbstractPage
 {
 
-    static function table(array $entities, array $counties,array $abc){
+    static function table(array $entities, array $counties,array $abc, int $id_county){
         echo '<h1>Városok</h1>';
         self::dropdown($counties);
         echo '<table id="cities-table">';
         self::tableHead();
-        self::showAbcButtons($abc);
+        self::showAbcButtons($abc, $id_county);
         self::tableBody($entities);
         echo '</table>';    
     }
@@ -30,18 +30,18 @@ class PageCities extends AbstractPage
         </tr>
        </thead>';
     }
-    static function showAbcButtons(array $abc)
+    static function showAbcButtons(array $abc, int $id_county)
     {
         //var_dump($abc);
         //die;
         echo "<div style='display: flex'>";
         foreach ($abc as $ch) {
-            echo "
-            <form method='post' action='makers.php'>
-                <input type='hidden' name='ch' value='$ch'>
-                <button type='submit'>$ch</button>&nbsp;
+            echo '
+            <form method="post" action="">
+                <input type="hidden" name="ch-input" value='.$id_county.'>
+                <button type="submit" name="ch-buttons" value='.$ch['abc'].'>'.$ch['abc'].'</button>&nbsp;
             </form>
-            ";
+            ';
         }
         echo "</div><br>";
     }
@@ -84,15 +84,18 @@ class PageCities extends AbstractPage
     static function dropdown($counties){
         echo '<th>&nbsp;</th>
         <th>
-         <form name="city-add" method="post" action="">
+         <form method="post" action="">
              <select name="county_id" required>
                 <option value="">Válasszon megyét</option>';
                 foreach ($counties as $county) {
                     echo "<option value='{$county['id']}'>{$county['name']}</option>";
                 }
         echo '   </select>
-             <button type="submit" value="" id="btn-ok" name="btn-ok" title="Ok">ok</i></button>
-         </form>
+            <button type="submit" value="" id="btn-ok" name="btn-ok" title="Ok"><i class="fa-solid fa-check"></i></i></button>
+            </form>
+        <form method="post" action="">
+             <button type="submit" name="btn-add"><i class="fa-solid fa-plus"></i></button>&nbsp;
+        </form>
         </th>
         
         <th class="flex">
@@ -100,7 +103,7 @@ class PageCities extends AbstractPage
         </th>';
     }
 
-    static function showModifyCities($id,$name,$zip,$idCounty)
+    static function showModifyCities($id,$name,$zip,$idCounty,$counties)
     {
         echo '
         <form method="post" action="">
@@ -109,9 +112,38 @@ class PageCities extends AbstractPage
             <input type="text" name="modified_city_name" value="' . htmlspecialchars($name) . '">
             <label for="modified_city_zip">Irányítószám:</label>
             <input type="text" name="modified_city_zip" value="' . htmlspecialchars($zip) . '">
-            <label for="modified_city_county_id">Megye ID:</label>
-            <input type="text" name="modified_city_county_id" value="' . htmlspecialchars($idCounty) . '">
+            <label for="modified_city_county_id">Megye:</label>
+            <select name="modified_city_county_id" required>';
+            $countyName = "";
+            foreach ($counties as $county) {
+                if ($county['id'] == $idCounty) {
+                    $countyName = $county['name'];
+                }
+            }
+                echo'<option value='. htmlspecialchars($idCounty) .' selected>'.$countyName.'</option>';
+                foreach ($counties as $county) {
+                    echo "<option value='{$county['id']}'>{$county['name']}</option>";
+                }
+        echo '   </select>
             <button class="gomb" type="submit" name="btn-save-modified-city"><i class="fa fa-save"></i></button>
+        </form>';
+    }
+    static function showAddCities($counties)
+    {
+        echo '
+        <form method="post" action="">
+            <label for="new_city_name">Város neve:</label>
+            <input type="text" name="new_city_name" value="">
+            <label for="new_city_zip">Irányítószám:</label>
+            <input type="text" name="new_city_zip" value="">
+            <label for="new_city_county_id">Megye:</label>
+            <select name="new_city_county_id" required>
+                <option value="">Válasszon megyét</option>';
+                foreach ($counties as $county) {
+                    echo "<option value='{$county['id']}'>{$county['name']}</option>";
+                }
+        echo '   </select>
+            <button class="gomb" type="submit" name="btn-add-city"><i class="fa fa-save"></i></button>
         </form>';
     }
 }
